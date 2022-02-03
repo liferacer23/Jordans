@@ -1,15 +1,11 @@
-import dbConnect from "../util/mongo";
-import Jordan from "../models/Jordan";
 import styles from "../styles/Cart.module.css";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 
-
-
-
 export default function Cart() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  console.log(cart);
   return (
     <div className={styles.container}>
       <div className={styles.left}>
@@ -23,46 +19,52 @@ export default function Cart() {
             <th>Total</th>
           </tr>
 
-          {cart.shoes.map((shoe) => {
+          {cart.shoes.map((shoe, index) => {
             return (
-              <tr>
+              <tr key={index}>
                 <td>
                   <div className={styles.imageContainer}>
-                    <Image src={shoe.image[0]} width={100} height={100} />
+                    <Image  key={index} src={shoe.image[0]} width={100} height={100} />
                   </div>
                 </td>
                 <td>
                   <span className={styles.name}>{shoe.title}</span>
                 </td>
                 <td>
-                  <span className={styles.extras}>Shoe laces</span>
-                </td>
+                  {shoe.extraOptions.map((data,index)=>{
+                    return(
+                      
+                    <h4 key={index} className={styles.extras}>{data.text}</h4>
+                    
+                    )
+                  })}
+                  </td> 
+                
                 <td>
-                  <span className={styles.price}>122$</span>
+                  <span className={styles.price}>{shoe.FinalPrice} $</span>
                 </td>
                 <td>
                   <span className={styles.quantity}>{shoe.quantity}</span>
                 </td>
                 <td>
-                  <span className={styles.total}>300$</span>
+                  <span className={styles.total}>{shoe.FinalPrice} $</span>
                 </td>
               </tr>
             );
           })}
-
         </table>
       </div>
       <div className={styles.right}>
         <div className={styles.wrapper}>
           <h1 className={styles.title}>CART TOTAL</h1>
           <div className={styles.subTotalText}>
-            <b className={styles.subTotalTextTitle}>Subtotal</b>$100
+            <b className={styles.subTotalTextTitle}>Subtotal</b>${cart.total}
           </div>
           <div className={styles.discount}>
             <b className={styles.discountTextTitle}>Discount</b>$0
           </div>
           <div className={styles.total}>
-            <b className={styles.totalTextTitle}>Total</b>$300
+            <b className={styles.totalTextTitle}>Total</b>${cart.total}
           </div>
           <button className={styles.button}>CHECKOUT NOW!!</button>
         </div>
@@ -70,8 +72,7 @@ export default function Cart() {
     </div>
   );
 }
-
-
+/* 
 export const getServerSideProps = async () => {
   dbConnect();
   const jordan = await Jordan.find();
@@ -84,4 +85,4 @@ export const getServerSideProps = async () => {
       jordans: JSON.parse(JSON.stringify(jordan)),
     },
   };
-};
+}; */
