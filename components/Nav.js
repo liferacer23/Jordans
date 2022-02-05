@@ -61,7 +61,7 @@ const Nav = () => {
         <Link href="/cart">
         <div className={styles.cart}>
             <Image src="/cart.svg" width={45} height={45} />
-            <div className={styles.counter}>{quantity}</div>
+            <h4 className={styles.counter}>{quantity}</h4>
         </div>
         </Link>
       </nav>

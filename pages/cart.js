@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 export default function Cart() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  console.log(cart);
   return (
     <div className={styles.container}>
       <div className={styles.left}>
@@ -24,7 +23,7 @@ export default function Cart() {
               <tr key={index}>
                 <td>
                   <div className={styles.imageContainer}>
-                    <Image  key={index} src={shoe.image[0]} width={100} height={100} />
+                    <Image  key={index} src={shoe.image[0]} width={100} height={120} />
                   </div>
                 </td>
                 <td>

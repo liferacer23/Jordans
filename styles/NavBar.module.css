@@ -39,6 +39,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  padding-top: 1rem;
 }
 
 .text {
@@ -61,6 +62,7 @@
 }
 .hamburgerContainer {
   display: none;
+  padding-top: 1rem;
 }
 .hamburger {
   display: none;
@@ -72,6 +74,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: 1rem;
 }
 .respnav {
   visibility: hidden;
@@ -84,24 +87,33 @@
 }
 .counter{
 position: absolute;
-right:20%;
-top:16%;
+right:10%;
+top:25%;
 font-weight: bold;
-color: coral;
+font-size: 0.8rem;
+color: white;
+background-color: orangered;
+border-radius: 360px;
+height: 25%;
+width: 40%;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 @media screen and (min-width: 1300px) {
   .nav_bar {
     height: 10vh;
   }
 }
-@media screen and (max-width: 888px) {
+@media screen and (max-width: 999px) {
   .nav_bar {
-    height: 15vh;
+    height: 12vh;
   }
 }
-@media screen and (max-width: 806px) {
+@media screen and (max-width: 814px) {
   .nav_bar {
-    height: 8vh;
+    height: 10vh;
+    padding-top: 1rem ;
   }
   .links a {
     display: none;
@@ -188,9 +200,18 @@ color: coral;
     align-items: center;
     justify-content: center;
   }
+  .counter{
+    top:13%;
+    font-size: 60%;
+    height: 38%;
+    width: 40%;
+  }
 }
+@media screen and (min-width:848px){
 
+}
 @media screen and (max-width: 390px) {
+  .nav_bar {height: 10vh;}
   .text h1 {
     font-size: 1rem;
     text-align: center;
@@ -203,27 +224,27 @@ color: coral;
 }
 @media screen and (min-width: 1000px) {
   .nav_bar {
-    height: 15vh;
+    height: 12vh;
   }
 }
 @media screen and (width: 820px) {
   .nav_bar {
-    height: 8vh;
+    height: 10vh;
   }
 }
 @media screen and (min-width: 1100px) {
   .nav_bar {
-    height: 13vh;
+    height: 12vh;
   }
 }
 @media screen and (min-width: 1200px) {
   .nav_bar {
-    height: 13vh;
+    height: 12vh;
   }
 }
 @media screen and (min-width: 1400px) {
   .nav_bar {
-    height: 12vh;
+    height: 11vh;
   }
 }
 @media screen and (min-width: 1600px) {
