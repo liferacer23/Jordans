@@ -10,7 +10,7 @@ export default function ItemList({ jordans }) {
       <div className={styles.container}>
         {jordans.map((data, index) => {
           return (
-            <div key={index} className={styles.itemContainer}>
+            <div key={data._id} className={styles.itemContainer}>
               <div className={styles.itemHeader}>
                 <h3>{data.title}</h3>
                 <a className={styles.expand} href={`store/jordans/${data._id}`}>

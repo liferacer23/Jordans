@@ -5,6 +5,44 @@ import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { addShoes } from "../../../redux/cartSlice";
 import styles from "../../../styles/SelectedJordan.module.css";
+
+
+
+export const getStaticPaths = async()=>{
+  
+  await dbConnect();
+  const jordan = await Jordan.find();
+  const shoe =JSON.parse(JSON.stringify(jordan));
+  // const HOST = process.env.APP_URL
+  //const res = await axios.get(`${HOST}/api/jordans`);
+  const paths = shoe.map((item)=>{
+    return {
+      params:{id:item._id.toString()}
+    }
+  })
+ 
+  return {
+      paths: paths,
+      fallback:false
+  };
+}
+
+export const getStaticProps = async ({ params }) => {
+  await dbConnect();
+  const id = JSON.parse(JSON.stringify(params));
+
+  const jordan = await Jordan.findById(id.id);
+
+  // const HOST = process.env.APP_URL
+  //const res = await axios.get(`${HOST}/api/jordans`);
+
+  return {
+    props: {
+      jordans: JSON.parse(JSON.stringify(jordan)),
+    },
+  };
+};
+
 export default function SelectedJordan({ jordans }) {
   const [shoePrice, setShoePrice] = useState(jordans.prices[0]);
   const [extra, setExtra] = useState(0);
@@ -131,18 +169,4 @@ export default function SelectedJordan({ jordans }) {
     </div>
   );
 }
-export const getServerSideProps = async ({ params }) => {
-  await dbConnect();
-  const id = JSON.parse(JSON.stringify(params));
 
-  const jordan = await Jordan.findById(id.id);
-
-  // const HOST = process.env.APP_URL
-  //const res = await axios.get(`${HOST}/api/jordans`);
-
-  return {
-    props: {
-      jordans: JSON.parse(JSON.stringify(jordan)),
-    },
-  };
-};
