@@ -1,10 +1,69 @@
 import styles from "../styles/Cart.module.css";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useEffect, useState } from "react";
+import {
+  PayPalScriptProvider,
+  PayPalButtons,
+  usePayPalScriptReducer,
+} from "@paypal/react-paypal-js";
 export default function Cart() {
+  const [open, setOpen] = useState(false);
+  const amount = "2";
+  const currency = "USD";
+  const style = { layout: "vertical" };
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const ButtonWrapper = ({ currency, showSpinner }) => {
+    // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
+    // This is the main reason to wrap the PayPalButtons in a new component
+    const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
+
+    useEffect(() => {
+      dispatch({
+        type: "resetOptions",
+        value: {
+          ...options,
+          currency: currency,
+        },
+      });
+    }, [currency, showSpinner]);
+
+    return (
+      <>
+        {showSpinner && isPending && <div className="spinner" />}
+        <PayPalButtons
+          style={style}
+          disabled={false}
+          forceReRender={[amount, currency, style]}
+          fundingSource={undefined}
+          createOrder={(data, actions) => {
+            return actions.order
+              .create({
+                purchase_units: [
+                  {
+                    amount: {
+                      currency_code: currency,
+                      value: amount,
+                    },
+                  },
+                ],
+              })
+              .then((orderId) => {
+                // Your code here after create the order
+                return orderId;
+              });
+          }}
+          onApprove={function (data, actions) {
+            return actions.order.capture().then(function () {
+              // Your code here after capture the order
+            });
+          }}
+        />
+      </>
+    );
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.left}>
@@ -23,22 +82,27 @@ export default function Cart() {
               <tr key={index}>
                 <td>
                   <div className={styles.imageContainer}>
-                    <Image  key={index} src={shoe.image[0]} width={100} height={120} />
+                    <Image
+                      key={index}
+                      src={shoe.image[0]}
+                      width={100}
+                      height={120}
+                    />
                   </div>
                 </td>
                 <td>
                   <span className={styles.name}>{shoe.title}</span>
                 </td>
                 <td>
-                  {shoe.extraOptions.map((data,index)=>{
-                    return(
-                      
-                    <h4 key={index} className={styles.extras}>{data.text}</h4>
-                    
-                    )
+                  {shoe.extraOptions.map((data, index) => {
+                    return (
+                      <h4 key={index} className={styles.extras}>
+                        {data.text}
+                      </h4>
+                    );
                   })}
-                  </td> 
-                
+                </td>
+
                 <td>
                   <span className={styles.price}>{shoe.FinalPrice} $</span>
                 </td>
@@ -65,7 +129,33 @@ export default function Cart() {
           <div className={styles.total}>
             <b className={styles.totalTextTitle}>Total</b>${cart.total}
           </div>
-          <button className={styles.button}>CHECKOUT NOW!!</button>
+          <div>
+            {open ? (
+              <div className={styles.paymentMethod}>
+                <button className={styles.paymentButton}>CASH ON DELIVERY</button>
+                {" "}
+                <PayPalScriptProvider
+                  options={{
+                    "client-id": "ARfQ6eeJ_6gr_ouBQc4ckNdLWAfBy1GvFvTbWcwI6C3eqZtZeyzG0dx-l9WGIYSl3l1UHZeDYRsTxcDB",
+                    components: "buttons",
+                    currency: "USD",
+                    "disable-funding": "credit,card,p24",
+                  }}
+                >
+                  <ButtonWrapper currency={currency} showSpinner={false} />
+                </PayPalScriptProvider>{" "}
+              </div>
+            ) : (
+              <button
+                onClick={() => {
+                  setOpen(!open);
+                }}
+                className={styles.button}
+              >
+                CHECKOUT NOW!!
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
