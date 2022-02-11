@@ -1,80 +1,107 @@
-.header{
+.header {
   display: flex;
   height: 8vh;
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
 }
-.search{
+.search {
   cursor: pointer;
 }
-.allposts{
+.allposts {
   cursor: pointer;
 }
-.container{
+.container {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   padding: 1rem;
   flex-wrap: wrap;
 }
-.itemContainer{
+.itemContainer {
   padding: 1rem;
   width: 30%;
-  max-height: 40%;
+  max-height: 50%;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  transform: translateY(var(--translate-y,0));
+  transform: translateY(var(--translate-y, 0));
   transition: 1s;
   text-decoration: none;
   color: black;
   margin-right: 1rem;
   margin-bottom: 1rem;
   border-radius: 1rem;
+
 }
-.expand{
+.expand {
   text-decoration: none;
   color: black;
   cursor: pointer;
+  background-color: rgb(88, 226, 88);
+  color: white;
+  font-weight: 400;
+  border-radius: 0.5rem;
+  width: 20%;
+  height: 15%;
+  text-align: center;
+  left: 50%;
 }
-.itemHeader{
+.itemHeader {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2rem;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
 }
-.itemHeader h3{
+
+.itemHeader h2 {
+  font-weight: 400;
+  margin-right: 2rem;
+
+}
+.itemHeader h2 {
   font-weight: 300;
+  margin-right: 2rem;
+  margin-bottom: -4rem;
+
 }
-.itemContainer:hover{
+ .details{
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 1rem;
+}
+.itemHeader .details h3{font-weight: 300;
+margin-bottom: 0.5rem;}
+.itemContainer:hover {
   box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2);
   --translate-y: -5px;
 }
-.itemContainer .description{
- 
+.itemContainer .description {
   margin-bottom: -4rem;
 }
-@media screen and (max-width:960px){
-  .itemContainer{
+@media screen and (max-width: 960px) {
+  .itemContainer {
     width: 45%;
   }
 }
-@media screen and (max-width:690px){
-  .itemContainer{
+@media screen and (max-width: 690px) {
+  .itemContainer {
     width: 90%;
   }
 }
-@media screen and (max-width:440px){
-  .itemContainer{
+@media screen and (max-width: 440px) {
+  .itemContainer {
     width: 100%;
   }
-  .itemContainer .description{
+  .itemContainer .description {
     font-size: 0.7rem;
     margin-bottom: -4rem;
   }
 }
 
 @media screen and (min-width: 1800px) {
-.itemContainer{
-  width: 20%;
-}
+  .itemContainer {
+    width: 20%;
+  }
 }
