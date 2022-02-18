@@ -14,7 +14,7 @@ export default function ItemList({ jordans }) {
             
             <div key={data._id} className={styles.itemContainer}>
               <div className={styles.itemHeader}>
-                <h2>{data.title}</h2>
+                <h3>{data.title}</h3>
 
               </div>
               <div className={styles.itemBody}>
