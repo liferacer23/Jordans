@@ -13,8 +13,10 @@ const cartSlice = createSlice({
             state.quantity+=1
             state.total+=action.payload.FinalPrice
         },
-        reset:()=>{
-            state=initialState
+        reset:(state)=>{
+          state.shoes=[];
+          state.quantity=0;
+          state.total=0;
         }
     }
 });
